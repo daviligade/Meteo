@@ -19,9 +19,6 @@ app.controller('mapController',
 			    	}  	
 				});
 			};
-			/*$http.get(BASE_URL+'twitter.php').success(function(data) {
-			    $scope.hashtags = data;
-			});*/
 
 			NgMap.getMap().then(function(map) {
 				$scope.map = map;
