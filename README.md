@@ -1,3 +1,3 @@
 # Meteo
 
-Simple exercise with angularjs, bootstrap, and meteo API. 
+Simple exercise with AngularJs, jQuery, Bootstrap, and Meteo API. 
