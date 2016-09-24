@@ -109,7 +109,9 @@ app.controller('mapController',
 			  $scope.showCity = function(event, city) {
 			    $scope.selectedCity = city;
 			    $scope.map.showInfoWindow('myInfoWindow', this);
-			    $scope.streamTwitter = "<a class='twitter-timeline' href='https://twitter.com/search?q=%23m%C3%A9t%C3%A9o%20%23" + $scope.selectedCity.name + "' data-widget-id='779702440807501824'><h2>Tweet with<br />#météo et #" + $scope.selectedCity.name + "</h2></a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>";
+			    //$scope.streamTwitter = "<a class='twitter-timeline' href='https://twitter.com/search?q=%23m%C3%A9t%C3%A9o%20%" + $scope.selectedCity.name + "' data-widget-id='779702440807501824'><h2>Tweet with<br />#météo et #" + $scope.selectedCity.name + "</h2></a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>";
+			  	jQuery('div.streaming').html('<a class="twitter-timeline" href="https://twitter.com/search?q=%23m%C3%A9t%C3%A9o%20%23paris" data-widget-id="779702440807501824"><h2>Tweet with #météo #paris</h2></a>' + 
+			  		'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document,\'script\',\'twitter-wjs\');</script>');
 			  };
     	}
 );
