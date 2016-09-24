@@ -10,12 +10,15 @@ app.controller('mapController',
 			$scope.homeCityInserted;
 			$scope.verifyCity = function(city) {
 				$scope.homeCityIsValid = false;
+				$scope.homeCityIsNotValid = false;
 				$http.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=367bbe27a5275930a89f567226a31ee0").success(function(data) {
 			    	if (data.name == city) {
 			    		$scope.homeCity = data;
 			    		$scope.homeCityIsValid = true;
 			    	} else {
+			    		$scope.homeCityInvalid = city;
 			    		$scope.homeCityIsValid = false;
+						$scope.homeCityIsNotValid = true;
 			    	}  	
 				});
 			};
@@ -44,7 +47,7 @@ app.controller('mapController',
 				'century it was one of Europe\'s major centres of finance, ' +
 				'commerce, fashion, science, and the arts, and it retains that ' +
 				'position still today.' +
-				'Attribution: https://en.wikipedia.org/wiki/Paris' +
+				'Attribution: https://en.wikipedia.org/wiki/Paris ' +
 				'(last visited September 23, 2016).'},
 			    {id: 2, name: 'Strasbourg', pos:[7.74, 48.58], content:
 			    'Strasbourg is the capital and largest city of the Grand Est ' +
@@ -57,14 +60,18 @@ app.controller('mapController',
 			    'of 773,347 (not counting the section across the border in Germany), ' +
 			    'making it the ninth largest metro area in France and home to 13% of ' +
 			    'the Grand Est region\'s inhabitants. The transnational Eurodistrict ' +
-			    'Strasbourg-Ortenau had a population of 915,000 inhabitants in 2014'},
+			    'Strasbourg-Ortenau had a population of 915,000 inhabitants in 2014 ' +
+				'Attribution: https://en.wikipedia.org/wiki/Strasbourg ' +
+				'(last visited September 23, 2016).'},
 			    {id: 3, name: 'Nantes', pos:[-1.55, 47.22], content:
 			    'Nantes is the capital city of the Pays de la Loire region and the ' +
 			    'Loire-Atlantique département, and it is the largest city in traditional ' +
 			    'Brittany and in the whole Grand-Ouest (northwestern France). Together with ' +
 			    'Vannes, Rennes and Carhaix, it was one of the major cities of the historic ' +
 			    'province of Brittany and the ancient Duchy of Brittany. Nantes is still ' +
-			    'widely regarded as its capital city'},
+			    'widely regarded as its capital city ' +
+				'Attribution: https://en.wikipedia.org/wiki/Nantes ' +
+				'(last visited September 23, 2016).'},
 			    {id: 4, name: 'Lyon', pos:[4.85, 45.75], content:
 			    'Lyon or Lyons is a city in east-central France, in the Auvergne-Rhône-Alpes ' +
 			    'region, about 470 km (292 mi) from Paris and 320 km (199 mi) from Marseille. ' +
@@ -72,7 +79,9 @@ app.controller('mapController',
 			    'in 2013 and is France\'s third-largest city after Paris and Marseille. Lyon is ' +
 			    'the capital of the department of Rhône and the region of Auvergne-Rhône-Alpes. ' +
 			    'The metropolitan area of Lyon had a population of 2,237,676 in 2013, the ' +
-			    'second-largest in France after Paris.'},
+			    'second-largest in France after Paris. ' +
+				'Attribution: https://en.wikipedia.org/wiki/Lyon ' +
+				'(last visited September 23, 2016).'},
 			    {id: 5, name: 'Bordeaux', pos:[-0.58, 44.84], content:
 			    'Bordeaux is a port city on the Garonne River in the Gironde department in ' +
 			    'southwestern France. The municipality (commune) of Bordeaux proper has a ' +
@@ -82,7 +91,9 @@ app.controller('mapController',
 			    'It is the capital of the Aquitaine-Limousin-Poitou-Charentes region, as well as the ' +
 			    'prefecture of the Gironde department. Its inhabitants are called "Bordelais" (for ' +
 			    'men) or "Bordelaises" (women). The term "Bordelais" may also refer to the city and ' +
-			    'its surrounding region.'},
+			    'its surrounding region. ' +
+				'Attribution: https://en.wikipedia.org/wiki/Bordeaux ' +
+				'(last visited September 23, 2016).'},
 			    {id: 6, name: 'Toulouse', pos:[1.44, 43.6], content:
 			    'Toulouse is the capital city of the southwestern French department of Haute-Garonne, ' +
 			    'as well as of the Occitanie region. It lies on the banks of the River Garonne, 150 ' +
@@ -90,7 +101,9 @@ app.controller('mapController',
 			    'Ocean, and 680 km (420 mi) from Paris. It is the fourth-largest city in France with ' +
 			    '458,298 inhabitants in 2013 January. Moreover, with 1,291,517 inhabitants at the ' +
 			    'January 2013 census, the Toulouse metropolitan area is also the fourth-largest in ' +
-			    'France, after Paris (12.3 million), Lyon (2.2 million) and Marseille (1.7 million).'},
+			    'France, after Paris (12.3 million), Lyon (2.2 million) and Marseille (1.7 million). ' +
+				'Attribution: https://en.wikipedia.org/wiki/Toulouse ' +
+				'(last visited September 23, 2016).'},
 			    {id: 7, name: 'Nice', pos:[7.25, 43.7], content:
 			    'Nice is the fifth most populous city in France and the capital of the Alpes-Maritimes ' +
 			    'département. The urban area of Nice extends beyond the administrative city limits, ' +
@@ -99,12 +112,16 @@ app.controller('mapController',
 			    'Nice is the second-largest French city on the Mediterranean coast and the second-largest ' +
 			    'city in the Provence-Alpes-Côte d\'Azur region after Marseille. Nice is about 13 ' +
 			    'kilometres (8 miles) from the principality of Monaco, and its airport is a gateway to the ' +
-			    'principality as well.'},
+			    'principality as well. ' +
+				'Attribution: https://en.wikipedia.org/wiki/Nice ' +
+				'(last visited September 23, 2016).'},
 			    {id: 8, name: 'Ajaccio', pos:[8.73, 41.92], content:
 			    'Ajaccio  is a French commune, prefecture of the department of Corse-du-Sud, and head ' +
 			    'office of the Collectivité territoriale de Corse (capital city of Corsica). It ' +
 			    'is also the largest settlement on the island. Ajaccio is located on the west coast ' +
-			    'of the island of Corsica, 210 nautical miles (390 km) southeast of Marseille.'}
+			    'of the island of Corsica, 210 nautical miles (390 km) southeast of Marseille. ' +
+				'Attribution: https://en.wikipedia.org/wiki/Ajaccio ' +
+				'(last visited September 23, 2016).'}
 			  ];
 			  $scope.showCity = function(event, city) {
 			    $scope.selectedCity = city;

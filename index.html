@@ -8,10 +8,11 @@
 </head>
 <body ng-app="meteoApp">
 	
-<h1 style="text-align: center; padding: 40px;">Meteo France</h1>
+<h1 style="text-align: center; padding: 40px;">Meteo France (Live)</h1>
                 
 <div ng-controller="mapController">
-	<h6 class="myHome" ng-show="homeCityIsValid">Your city ({{homeCity.name}}) has the following weather: {{homeCity.description}} <img src="http://openweathermap.org/img/w/{{homeCity.weather[0].icon}}.png" alt="{{homeCity.description}}" style="width:50px;height:50px;"></h6>
+	<h6 class="myHome" ng-show="homeCityIsValid">Your city <b>({{homeCity.name}})</b> has the following weather: <b>{{homeCity.weather[0].description}}</b> <img src="http://openweathermap.org/img/w/{{homeCity.weather[0].icon}}.png" alt="{{homeCity.description}}" style="width:50px;height:50px;"></h6>
+	<h6 class="myHomeInvalid" ng-show="homeCityIsNotValid"><b>{{homeCityInvalid}} <u>does not exist</u> (check inserted characters!)</b></h6>
     <div class="col-md-8 leftContainer" style="padding-left: 0;">
 		<div map-lazy-load="https://maps.google.com/maps/api/js" map-lazy-load-params="{{googleMapsUrl}}">
 			<ng-map center="46.4988281, 1.9142301" zoom="6" style="height:620px;" scrollwheel="false">
