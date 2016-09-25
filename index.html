@@ -31,10 +31,10 @@
 		</div>
     </div>
     <div class="col-md-4 rightContainer">
-    	<div class="citySelector">
+    	<form class="citySelector">
 	    	<p style="padding-top: 20px;">Please, insert the name of your City: <input type="text" ng-model="homeCityInserted"></p>
-	    	<div class="btn btn-primary" ng-click="verifyCity(homeCityInserted)">OK</div>
-		</div>
+	    	<input type="submit" value="OK" class="btn btn-primary" ng-click="verifyCity(homeCityInserted)" ng-show="true">
+		</form>
 		<div class="streamTwitter">
 			<div ng-hide="(selectedCity.name)" ng-show="(!selectedCity.name)">
 				<h2>Please, <b>click</b> on the main cities to see last tweets.</h2>

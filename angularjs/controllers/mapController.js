@@ -1,34 +1,24 @@
 app.controller('mapController', 
-        function($scope, $http, NgMap, GOOGLE_URL_WITH_KEY) {
+        function($scope, $http, NgMap, GOOGLE_URL_WITH_KEY) { //Main function Starts
+			
+			/** Initilizing some variables in the scope **/
             $scope.markers = [];
             $scope.homeCity = [];
+            $scope.homeCityInserted;
+			$scope.googleMapsUrl = GOOGLE_URL_WITH_KEY;
+
+
+            /** GET METEO DATA (for meteo images) and inserting them into markers[] **/
             $http.get("http://api.openweathermap.org/data/2.5/group?id=2988507,2973783,2990969,2996944,3031582,2972315,6454924,6452235&units=metric&APPID=367bbe27a5275930a89f567226a31ee0").success(function(data) {
 			    $scope.markers = data;
 			});
 
-			$scope.googleMapsUrl = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDvEz5fRsabeSrRmS3WG2eOgxXqU6sq8W4";
-			$scope.homeCityInserted;
-			$scope.verifyCity = function(city) {
-				$scope.homeCityIsValid = false;
-				$scope.homeCityIsNotValid = false;
-				$http.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=367bbe27a5275930a89f567226a31ee0").success(function(data) {
-			    	if (data.name == city) {
-			    		$scope.homeCity = data;
-			    		$scope.homeCityIsValid = true;
-			    	} else {
-			    		$scope.homeCityInvalid = city;
-			    		$scope.homeCityIsValid = false;
-						$scope.homeCityIsNotValid = true;
-			    	}  	
-				});
-			};
-
+			/** Inserting map in the scope **/
 			NgMap.getMap().then(function(map) {
 				$scope.map = map;
-				console.log(map.getCenter());
-				console.log('markers', map.markers);
-				console.log('shapes', map.shapes);
 			});
+
+			/** Creating an array of cities **/
 			$scope.cities = [
 			    {id: 1, name: 'Paris', pos:[2.35, 48.85], content:
 			    'Paris,  is the capital and the most populous city ' +
@@ -122,13 +112,42 @@ app.controller('mapController',
 			    'of the island of Corsica, 210 nautical miles (390 km) southeast of Marseille. ' +
 				'Attribution: https://en.wikipedia.org/wiki/Ajaccio ' +
 				'(last visited September 23, 2016).'}
-			  ];
-			  $scope.showCity = function(event, city) {
+			];
+
+			/** Bind Click to map infoWindow **/
+			$scope.showCity = function(event, city) {
 			    $scope.selectedCity = city;
 			    $scope.map.showInfoWindow('myInfoWindow', this);
-			    //$scope.streamTwitter = "<a class='twitter-timeline' href='https://twitter.com/search?q=%23m%C3%A9t%C3%A9o%20%" + $scope.selectedCity.name + "' data-widget-id='779702440807501824'><h2>Tweet with<br />#météo et #" + $scope.selectedCity.name + "</h2></a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>";
-			  	jQuery('div.streaming').html('<a class="twitter-timeline" href="https://twitter.com/search?q=%23m%C3%A9t%C3%A9o%20%23paris" data-widget-id="779702440807501824"><h2>Tweet with #météo #paris</h2></a>' + 
-			  		'<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document,\'script\',\'twitter-wjs\');</script>');
-			  };
-    	}
+			};
+
+			/** Little validation on city inserted **/
+			$scope.verifyCity = function(city) {
+				$scope.homeCityIsValid = false;
+				$scope.homeCityIsNotValid = false;
+				$http.get("http://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=367bbe27a5275930a89f567226a31ee0").success(function(data) {
+			    	if (data.name == city) {
+			    		$scope.homeCity = data;
+			    		$scope.homeCityIsValid = true;
+			    	} else {
+			    		$scope.homeCityInvalid = city;
+			    		$scope.homeCityIsValid = false;
+						$scope.homeCityIsNotValid = true;
+			    	}  	
+				});
+			};
+
+			/** Bind Enter keypress to "Ok" button **/
+			$(function() {
+			    $('form').each(function() {
+			        $(this).find('input').keypress(function(e) {
+			            // Enter pressed?
+			            if(e.which == 10 || e.which == 13) {
+			            	var city = $('form').find('input[type=text]').val();
+			                $scope.verifyCity(city);
+			            }
+			        });
+			    });
+			});
+
+    	}//Main function Ends
 );
